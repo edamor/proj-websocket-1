@@ -15,14 +15,15 @@ public class WebSocketMsgConfig implements WebSocketMessageBrokerConfigurer
     @Override
     public void registerStompEndpoints(final StompEndpointRegistry registry)
     {
-        registry.addEndpoint("/chat-sample").withSockJS();
+        registry.addEndpoint("/spring-ws").setAllowedOrigins("*");
+        registry.addEndpoint("/spring-ws").setAllowedOrigins("*").withSockJS();
     }
 
     @Override
     public void configureMessageBroker(final MessageBrokerRegistry registry)
     {
-        registry.setApplicationDestinationPrefixes("/app");
         registry.enableSimpleBroker("/topic");
+        registry.setApplicationDestinationPrefixes("/app");
 
     }
 

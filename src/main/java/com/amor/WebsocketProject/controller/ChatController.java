@@ -1,21 +1,29 @@
 package com.amor.WebsocketProject.controller;
 
 import com.amor.WebsocketProject.model.ChatMessage;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
+import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.stereotype.Controller;
 
 @Controller
 public class ChatController
 {
+    @Autowired
+    private SimpMessageSendingOperations sendingOperations;
+
     @MessageMapping("/chat.send")
-    @SendTo("/topic/public")
-    public ChatMessage sendMessage(@Payload final ChatMessage chatMessage)
+    public void sendMessage(@Payload final ChatMessage chatMessage)
     {
-     return chatMessage;
+        System.out.println(chatMessage.getContent() + "\n" + chatMessage.getSender());
+
+        sendingOperations.convertAndSend("/topic/public", chatMessage);
     }
+
 
     @MessageMapping("/chat.newUser")
     @SendTo("/topic/public")

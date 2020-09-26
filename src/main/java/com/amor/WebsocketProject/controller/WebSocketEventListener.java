@@ -25,6 +25,7 @@ public class WebSocketEventListener
     public void handleWebSocketConnectListener(final SessionConnectedEvent event)
     {
         LOGGER.info("Bing bong bing... we have connection!");
+
     }
 
     @EventListener

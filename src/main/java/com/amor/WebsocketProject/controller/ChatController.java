@@ -19,8 +19,7 @@ public class ChatController
     @MessageMapping("/chat.send")
     public void sendMessage(@Payload final ChatMessage chatMessage)
     {
-        System.out.println(chatMessage.getContent() + "\n" + chatMessage.getSender());
-
+        System.out.println(chatMessage.getSender() + "\n" + chatMessage.getContent());
         sendingOperations.convertAndSend("/topic/public", chatMessage);
     }
 

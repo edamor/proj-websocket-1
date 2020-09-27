@@ -37,7 +37,8 @@ public class WebSocketEventListener
 
         final ChatMessage chatMessage = ChatMessage.builder()
                 .type(MessageType.DISCONNECT)
-                .sender(username)
+                .content("A user has left the room.")
+                .sender("system")
                 .build();
 
         sendingOperations.convertAndSend("/topic/public", chatMessage);
